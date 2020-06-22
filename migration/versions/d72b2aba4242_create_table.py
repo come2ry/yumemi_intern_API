@@ -1,7 +1,7 @@
 """create table
 
 Revision ID: d72b2aba4242
-Revises: 
+Revises:
 Create Date: 2020-06-22 18:30:09.418645+09:00
 
 """

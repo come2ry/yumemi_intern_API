@@ -11,3 +11,12 @@ from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import Session, joinedload, load_only
 
 from app import models, schemas
+
+
+def get_word_from_group(db: Session, group: str):
+    query = db.query(models.Words)
+    query= query.join(models.Groups)
+    query = query.filter(models.Groups.group == group)
+
+    words = query.all()
+    return words

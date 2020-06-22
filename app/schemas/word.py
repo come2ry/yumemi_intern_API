@@ -5,15 +5,17 @@ from typing import Any, Dict, List, Optional
 from fastapi.logger import logger as fastapi_logger
 from pydantic import (BaseModel, PositiveInt, ValidationError, constr, validator)
 
-from .words import WordsInDBBase
 
-class GroupsInDBBase(BaseModel):
+class WordsInDBBase(BaseModel):
     id: PositiveInt
-    group: constr(min_length=1, max_length=50)
+    word: constr(min_length=1, max_length=50)
+    groupId: PositiveInt
 
-class GroupsInDB(GroupsInDBBase):
+
+class WordsInDB(WordsInDBBase):
     class Config:
         orm_mode = True
 
-class Groups(GroupsInDBBase):
+
+class Words(WordsInDBBase):
     pass
