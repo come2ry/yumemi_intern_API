@@ -1,2 +1,2 @@
-# from .group import Group
-from .word import Word
+from .group import Groups
+from .word import Words

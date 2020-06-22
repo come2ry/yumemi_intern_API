@@ -10,5 +10,4 @@ from sqlalchemy import bindparam, or_, text
 from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import Session, joinedload, load_only
 
-import models
-import schemas
+from app import models, schemas

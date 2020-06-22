@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
 
-from api.api_v1.endpoints import group, scan, words
-from core.config import settings
+from app.api.api_v1.endpoints import group, scan, words
+from app.core.config import settings
 
 api_router = APIRouter()
 

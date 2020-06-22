@@ -8,10 +8,9 @@ from google.auth.transport import requests
 from starlette.requests import Request
 from starlette.status import HTTP_403_FORBIDDEN
 
-import crud
-import schemas
-from core.config import settings
-from db.session import SessionLocal
+from app import crud, schemas
+from app.core.config import settings
+from app.db.session import SessionLocal
 
 def get_db() -> Generator:
     try:

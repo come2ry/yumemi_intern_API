@@ -9,10 +9,9 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, RedirectResponse
 from starlette.status import HTTP_403_FORBIDDEN
 
-import crud
-import schemas
-from api import deps
-from core.config import settings
+from app import crud, schemas
+from app.api import deps
+from app.core.config import settings
 
 router = APIRouter()
 
