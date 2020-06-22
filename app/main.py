@@ -9,9 +9,11 @@ from starlette.responses import FileResponse
 
 from api.api_v1.api import api_router
 from core.config import settings
-from database import db_session
+from db.session import SessionLocal
 
-app = FastAPI(title=settings.PROJECT_NAME)
+app = FastAPI(
+    title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
+)
 
 # Set all CORS enabled origins
 if settings.BACKEND_CORS_ORIGINS:
@@ -27,7 +29,8 @@ if settings.BACKEND_CORS_ORIGINS:
 # APIサーバシャットダウン時にDBセッションを削除
 @app.on_event("shutdown")
 async def shutdown_event():
-    db_session.remove()
+    db = SessionLocal()
+    db.remove()
 
 
 app.include_router(

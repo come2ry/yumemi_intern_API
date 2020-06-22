@@ -11,11 +11,11 @@ from starlette.status import HTTP_403_FORBIDDEN
 import crud
 import schemas
 from core.config import settings
-from database import db_session
-
+from db.session import SessionLocal
 
 def get_db() -> Generator:
     try:
-        yield db_session
+        db = SessionLocal()
+        yield db
     finally:
-        db_session.close()
+        db.close()
