@@ -8,7 +8,7 @@
 
 ![](header.png)
 
-## PreInstallation
+## Pre Installation
 OS X:
 
 ```sh
