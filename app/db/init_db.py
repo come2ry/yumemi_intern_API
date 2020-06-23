@@ -40,38 +40,38 @@ from fastapi.logger import logger as fastapi_logger
 # ]
 
 words = [
-    schemas.WordsCreate(word="クライアント名1", group="projectA"),
-    schemas.WordsCreate(word="クライアント名2", group="projectA"),
-    schemas.WordsCreate(word="クライアント名3", group="projectA"),
-    schemas.WordsCreate(word="悲惨", group="projectB"),
-    schemas.WordsCreate(word="最悪", group="projectC"),
-    schemas.WordsCreate(word="絶望", group="projectD"),
-    schemas.WordsCreate(word="やめ太郎", group="projectE"),
-    schemas.WordsCreate(word="しんどい", group="projectF"),
-    schemas.WordsCreate(word="めちゃくちゃしんどい", group="projectG"),
-    schemas.WordsCreate(word="ブラック", group="projectH"),
-    schemas.WordsCreate(word="よくない", group="projectI"),
-    schemas.WordsCreate(word="全然よくない", group="projectJ"),
-    schemas.WordsCreate(word="悲惨", group="projectK"),
-    schemas.WordsCreate(word="絶望", group="projectL"),
-    schemas.WordsCreate(word="やめ太郎", group="projectM"),
-    schemas.WordsCreate(word="しんどい", group="projectN"),
-    schemas.WordsCreate(word="めちゃくちゃしんどい", group="projectO"),
-    schemas.WordsCreate(word="ブラック", group="projectP"),
-    schemas.WordsCreate(word="よくない", group="projectQ"),
-    schemas.WordsCreate(word="全然よくない", group="projectR"),
-    schemas.WordsCreate(word="悲惨", group="projectS"),
-    schemas.WordsCreate(word="絶望", group="projectU"),
-    schemas.WordsCreate(word="やめ太郎", group="projectV"),
-    schemas.WordsCreate(word="めちゃくちゃしんどい", group="projectW"),
-    schemas.WordsCreate(word="よくない", group="projectX"),
+    schemas.NgWordsCreate(ng_word="クライアント名1", group="projectA"),
+    schemas.NgWordsCreate(ng_word="クライアント名2", group="projectA"),
+    schemas.NgWordsCreate(ng_word="クライアント名3", group="projectA"),
+    schemas.NgWordsCreate(ng_word="悲惨", group="projectB"),
+    schemas.NgWordsCreate(ng_word="最悪", group="projectC"),
+    schemas.NgWordsCreate(ng_word="絶望", group="projectD"),
+    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectE"),
+    schemas.NgWordsCreate(ng_word="しんどい", group="projectF"),
+    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectG"),
+    schemas.NgWordsCreate(ng_word="ブラック", group="projectH"),
+    schemas.NgWordsCreate(ng_word="よくない", group="projectI"),
+    schemas.NgWordsCreate(ng_word="全然よくない", group="projectJ"),
+    schemas.NgWordsCreate(ng_word="悲惨", group="projectK"),
+    schemas.NgWordsCreate(ng_word="絶望", group="projectL"),
+    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectM"),
+    schemas.NgWordsCreate(ng_word="しんどい", group="projectN"),
+    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectO"),
+    schemas.NgWordsCreate(ng_word="ブラック", group="projectP"),
+    schemas.NgWordsCreate(ng_word="よくない", group="projectQ"),
+    schemas.NgWordsCreate(ng_word="全然よくない", group="projectR"),
+    schemas.NgWordsCreate(ng_word="悲惨", group="projectS"),
+    schemas.NgWordsCreate(ng_word="絶望", group="projectU"),
+    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectV"),
+    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectW"),
+    schemas.NgWordsCreate(ng_word="よくない", group="projectX"),
 ]
 
 
 def init_db(db: Session) -> None:
     tables = Base.metadata.tables
     print(list(tables.keys()))
-    Base.metadata.drop_all(bind=engine, tables=list(tables.values()), checkfirst=True)
+    # Base.metadata.drop_all(bind=engine, tables=list(tables.values()), checkfirst=True)
 
     try:
         Base.metadata.create_all(bind=engine)
@@ -85,22 +85,22 @@ def init_db(db: Session) -> None:
         groups_search_dict = {group.group: group.id for group in groups}
 
         word_in_list = []
-        for word in words:
-            groupId = groups_search_dict.get(word.group, None)
-            if groupId is None:
+        for ng_word in words:
+            group_id = groups_search_dict.get(ng_word.group, None)
+            if group_id is None:
                 group_in = schemas.GroupsCreateInDB(
-                    group=word.group
+                    group=ng_word.group
                 )
                 created_group = crud.create_group(db, obj_in=group_in)
-                groupId = created_group.id
-                groups_search_dict[word.group] = groupId
+                group_id = created_group.id
+                groups_search_dict[ng_word.group] = group_id
 
-            word_in_list += [schemas.WordsCreateInDB(
-                word=word.word,
-                groupId=groupId
+            word_in_list += [schemas.NgWordsCreateInDB(
+                ng_word=ng_word.ng_word,
+                group_id=group_id
             )]
 
-        is_ok = crud.create_words(db, obj_in_list=word_in_list)
+        is_ok = crud.create_ng_words(db, obj_in_list=word_in_list)
 
         if is_ok:
             print(f"DB init success")

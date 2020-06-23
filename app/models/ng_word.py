@@ -6,21 +6,21 @@ from sqlalchemy.orm import backref, relationship
 from app.db.base_class import Base
 
 
-class Words(Base):
-    __tablename__ = 'words'
+class NgWords(Base):
+    __tablename__ = 'ng_words'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    word = Column(String(50))
-    groupId = Column(Integer, ForeignKey('groups.id'))
+    ng_word = Column(String(50))
+    group_id = Column(Integer, ForeignKey('groups.id'))
 
     group = relationship(
         'Groups',
-        backref=backref('words',
+        backref=backref('ngWords',
                         lazy="select",
                         cascade='delete,all')
     )
 
     __table_args__ = (
-        UniqueConstraint('word','groupId'),
-        Index('word_and_groupId_idx', word, groupId),
+        UniqueConstraint('ng_word','group_id'),
+        Index('ng_word_and_group_id_idx', ng_word, group_id),
         {},
     )

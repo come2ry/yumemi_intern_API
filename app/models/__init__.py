@@ -1,2 +1,2 @@
 from .group import Groups
-from .word import Words
+from .ng_word import NgWords
