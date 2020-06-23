@@ -1,0 +1,78 @@
+@baseUrl = http://127.0.0.1:8000
+
+# @name NgWordCreate1
+POST {{baseUrl}}/ng_words HTTP/1.1
+Content-Type: application/json
+
+{
+  "ng_word": "NG",
+  "group": "project1"
+}
+
+###
+
+# @name NgWordCreate2
+POST {{baseUrl}}/ng_words HTTP/1.1
+Content-Type: application/json
+
+{
+  "ng_word": "機密",
+  "group": "project2"
+}
+
+###
+
+# @name NgWordCreate3
+POST {{baseUrl}}/ng_words HTTP/1.1
+Content-Type: application/json
+
+{
+  "ng_word": "何も問題ない",
+  "group": "no_problem_prohect"
+}
+
+###
+
+@beDeletedWordId = {{ NgWordCreate3.response.body.$.id }}
+
+###
+
+# @name NgWordGet1
+GET {{baseUrl}}/ng_words?group=project1 HTTP/1.1
+
+###
+
+# @name NgWordGet2
+GET {{baseUrl}}/ng_words HTTP/1.1
+
+###
+
+# @name NgWordDel
+DELETE {{baseUrl}}/ng_words/id/{{beDeletedWordId}} HTTP/1.1
+
+###
+
+# @name Scan
+POST {{baseUrl}}/scan HTTP/1.1
+Content-Type: application/json
+
+{
+  "test": "NG 機密事項"
+}
+
+###
+
+# @name Scan
+POST {{baseUrl}}/scan HTTP/1.1
+Content-Type: application/json
+
+{
+  "test": "何も問題ないテキスト"
+}
+
+###
+
+# @name GroupGetAll
+GET {{baseUrl}}/groups HTTP/1.1
+
+###

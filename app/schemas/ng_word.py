@@ -6,12 +6,12 @@ from fastapi.logger import logger as fastapi_logger
 from pydantic import (BaseModel, PositiveInt, ValidationError, constr, validator)
 
 # POST Requestで受け取る形式
-class NgWordsCreate(BaseModel):
+class NgWordsParams(BaseModel):
     ng_word: constr(min_length=1, max_length=50)
     group: constr(min_length=1, max_length=50)
 
 # DBに挿入する時の形式
-class NgWordsCreateInDB(BaseModel):
+class NgWordsParamsInDB(BaseModel):
     ng_word: constr(min_length=1, max_length=50)
     group_id: PositiveInt
 

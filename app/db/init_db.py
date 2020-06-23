@@ -40,31 +40,31 @@ from fastapi.logger import logger as fastapi_logger
 # ]
 
 words = [
-    schemas.NgWordsCreate(ng_word="クライアント名1", group="projectA"),
-    schemas.NgWordsCreate(ng_word="クライアント名2", group="projectA"),
-    schemas.NgWordsCreate(ng_word="クライアント名3", group="projectA"),
-    schemas.NgWordsCreate(ng_word="悲惨", group="projectB"),
-    schemas.NgWordsCreate(ng_word="最悪", group="projectC"),
-    schemas.NgWordsCreate(ng_word="絶望", group="projectD"),
-    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectE"),
-    schemas.NgWordsCreate(ng_word="しんどい", group="projectF"),
-    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectG"),
-    schemas.NgWordsCreate(ng_word="ブラック", group="projectH"),
-    schemas.NgWordsCreate(ng_word="よくない", group="projectI"),
-    schemas.NgWordsCreate(ng_word="全然よくない", group="projectJ"),
-    schemas.NgWordsCreate(ng_word="悲惨", group="projectK"),
-    schemas.NgWordsCreate(ng_word="絶望", group="projectL"),
-    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectM"),
-    schemas.NgWordsCreate(ng_word="しんどい", group="projectN"),
-    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectO"),
-    schemas.NgWordsCreate(ng_word="ブラック", group="projectP"),
-    schemas.NgWordsCreate(ng_word="よくない", group="projectQ"),
-    schemas.NgWordsCreate(ng_word="全然よくない", group="projectR"),
-    schemas.NgWordsCreate(ng_word="悲惨", group="projectS"),
-    schemas.NgWordsCreate(ng_word="絶望", group="projectU"),
-    schemas.NgWordsCreate(ng_word="やめ太郎", group="projectV"),
-    schemas.NgWordsCreate(ng_word="めちゃくちゃしんどい", group="projectW"),
-    schemas.NgWordsCreate(ng_word="よくない", group="projectX"),
+    schemas.NgWordsParams(ng_word="クライアント名1", group="projectA"),
+    schemas.NgWordsParams(ng_word="クライアント名2", group="projectA"),
+    schemas.NgWordsParams(ng_word="クライアント名3", group="projectA"),
+    schemas.NgWordsParams(ng_word="悲惨", group="projectB"),
+    schemas.NgWordsParams(ng_word="最悪", group="projectC"),
+    schemas.NgWordsParams(ng_word="絶望", group="projectD"),
+    schemas.NgWordsParams(ng_word="やめ太郎", group="projectE"),
+    schemas.NgWordsParams(ng_word="しんどい", group="projectF"),
+    schemas.NgWordsParams(ng_word="めちゃくちゃしんどい", group="projectG"),
+    schemas.NgWordsParams(ng_word="ブラック", group="projectH"),
+    schemas.NgWordsParams(ng_word="よくない", group="projectI"),
+    schemas.NgWordsParams(ng_word="全然よくない", group="projectJ"),
+    schemas.NgWordsParams(ng_word="悲惨", group="projectK"),
+    schemas.NgWordsParams(ng_word="絶望", group="projectL"),
+    schemas.NgWordsParams(ng_word="やめ太郎", group="projectM"),
+    schemas.NgWordsParams(ng_word="しんどい", group="projectN"),
+    schemas.NgWordsParams(ng_word="めちゃくちゃしんどい", group="projectO"),
+    schemas.NgWordsParams(ng_word="ブラック", group="projectP"),
+    schemas.NgWordsParams(ng_word="よくない", group="projectQ"),
+    schemas.NgWordsParams(ng_word="全然よくない", group="projectR"),
+    schemas.NgWordsParams(ng_word="悲惨", group="projectS"),
+    schemas.NgWordsParams(ng_word="絶望", group="projectU"),
+    schemas.NgWordsParams(ng_word="やめ太郎", group="projectV"),
+    schemas.NgWordsParams(ng_word="めちゃくちゃしんどい", group="projectW"),
+    schemas.NgWordsParams(ng_word="よくない", group="projectX"),
 ]
 
 
@@ -95,7 +95,7 @@ def init_db(db: Session) -> None:
                 group_id = created_group.id
                 groups_search_dict[ng_word.group] = group_id
 
-            word_in_list += [schemas.NgWordsCreateInDB(
+            word_in_list += [schemas.NgWordsParamsInDB(
                 ng_word=ng_word.ng_word,
                 group_id=group_id
             )]

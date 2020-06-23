@@ -94,7 +94,7 @@ def create_group(db: Session, obj_in: schemas.GroupsCreateInDB) -> models.Groups
         raise e
 
 
-def create_ng_word(db: Session, obj_in: schemas.NgWordsCreateInDB) -> models.NgWords:
+def create_ng_word(db: Session, obj_in: schemas.NgWordsParamsInDB) -> models.NgWords:
     """
     1件のngWordをDBへ挿入してngWordを返す
     """
@@ -115,7 +115,7 @@ def create_ng_word(db: Session, obj_in: schemas.NgWordsCreateInDB) -> models.NgW
         raise e
 
 
-def create_ng_words(db: Session, obj_in_list: List[schemas.NgWordsCreateInDB]) -> bool:
+def create_ng_words(db: Session, obj_in_list: List[schemas.NgWordsParamsInDB]) -> bool:
     """
     複数件のngWordをDBへ挿入して成功したらTrueを返す
     """

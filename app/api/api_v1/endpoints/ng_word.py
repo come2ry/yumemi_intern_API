@@ -31,7 +31,7 @@ async def get_ng_words_all(group: str = None, db: Session = Depends(deps.get_db)
 
 
 @router.post("", response_model=schemas.NgWordsInDB)
-async def post_ng_word(params: schemas.NgWordsCreate, db: Session = Depends(deps.get_db)):
+async def post_ng_word(params: schemas.NgWordsParams, db: Session = Depends(deps.get_db)):
     """
     機密単語をDBに追加する
     登録時にプロジェクト識別子は必須項目
@@ -63,7 +63,7 @@ async def post_ng_word(params: schemas.NgWordsCreate, db: Session = Depends(deps
         raise HTTPException(status_code=409, detail="Duplicated ng word")
 
     try:
-        ngWord_in = schemas.NgWordsCreateInDB(
+        ngWord_in = schemas.NgWordsParamsInDB(
             ng_word=params.ng_word,
             group_id=group_id
         )
