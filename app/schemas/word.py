@@ -26,7 +26,10 @@ class WordsInDB(WordsInDBBase):
     class Config:
         orm_mode = True
 
-# DBにから返す時のResponseの形式
-class Words(WordsInDBBase):
-    class Config:
-        orm_mode = True
+# # DBにから返す時のResponseの形式
+# class Words(BaseModel):
+#     word: constr(min_length=1, max_length=50)
+#     group: str = None
+
+#     class Config:
+#         orm_mode = True

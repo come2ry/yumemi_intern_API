@@ -15,9 +15,17 @@ from app.core.config import settings
 
 router = APIRouter()
 
-@router.get("")
+@router.get("", response_model=List[schemas.Words])
 async def get_words_all(db: Session = Depends(deps.get_db)):
-    pass
+    words = crud.read_words(db)
+    return words
+
+    # words_model_list = []
+    # for word in words:
+    #     words_model = schemas.Words.from_orm(word)
+    #     words_model.group = words.group.group
+    #     words_model_list += [words_model]
+    # return words_model_list
 
 
 @router.post("")
