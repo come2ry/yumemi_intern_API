@@ -9,7 +9,7 @@
 ![](header.png)
 
 ## PreInstallation
-OS X & Linux:
+OS X:
 
 ```sh
 brew install pyenv
