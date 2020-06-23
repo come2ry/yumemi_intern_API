@@ -45,8 +45,8 @@ make init
 make run
 ```
 
-http://0.0.0.0:8000/docs
-へアクセス
+http://127.0.0.1:8000/docs
+へアクセスするとSwaggerが起動
 
 ## Development setup
 
