@@ -9,5 +9,8 @@ migrate:
 upgrade:
 	pipenv run alembic upgrade head
 
+downgrade:
+	pipenv run alembic downgrade -1
+
 run:
 	uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

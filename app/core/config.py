@@ -76,7 +76,7 @@ class Settings(BaseSettings):
         'pool_recycle': 1800,
         'pool_pre_ping': True,
         'convert_unicode': True,
-        'echo': True,
+        'echo': False,
     }
 
     class Config:

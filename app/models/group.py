@@ -9,4 +9,4 @@ from app.db.base_class import Base
 class Groups(Base):
     __tablename__ = 'groups'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    group = Column(String(50), index=True)
+    group = Column(String(50), index=True, unique=True)

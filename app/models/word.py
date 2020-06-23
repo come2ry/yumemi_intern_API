@@ -13,7 +13,7 @@ class Words(Base):
     groupId = Column(Integer, ForeignKey('groups.id'))
 
     group = relationship(
-        'groups',
+        'Groups',
         backref=backref('words',
                         lazy="select",
                         cascade='delete,all')
