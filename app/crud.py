@@ -18,14 +18,18 @@ def read_words(db: Session):
     return words
 
 
-def read_word_from_group(db: Session, group: str):
-    # query = db.query(models.Words)
-    # query= query.join(models.Groups)
-    query = db.query(models.Groups)
+def read_word_from_group(db: Session, group: str = None):
+    if group is None:
+        words = db.query(models.Words).all()
+        return words
+
+    # query = db.query(models.Groups)
+    query = db.query(models.Words)
+    query= query.join(models.Groups)
     query = query.filter(models.Groups.group == group)
-    query= query.join(models.Words)
 
     words = query.all()
+    fastapi_logger.info(words)
     return words
 
 def read_groups(db: Session):

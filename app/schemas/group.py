@@ -13,7 +13,8 @@ class GroupsCreateInDB(BaseModel):
 # DBに含まれる形式の基盤
 class GroupsInDBBase(BaseModel):
     id: PositiveInt
-    group: constr(min_length=1, max_length=50)
+    group: str
+    # group: constr(min_length=1, max_length=50)
 
 # DBに含まれる形式
 class GroupsInDB(GroupsInDBBase):
