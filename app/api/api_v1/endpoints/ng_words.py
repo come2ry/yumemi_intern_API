@@ -22,6 +22,7 @@ async def get_ng_words_all(group: str = None, db: Session = Depends(deps.get_db)
     プロジェクト識別子を指定して、紐づいた単語オブジェクトをリストで取得する
     groupを指定しない時、全ての単語を閲覧する
     """
+
     try:
         ngWords = crud.read_ng_words_from_group(db, group=group)
         return ngWords
@@ -59,7 +60,7 @@ async def post_ng_word(params: schemas.NgWordsCreate, db: Session = Depends(deps
     ng_words_search_set = {ngWord.ng_word for ngWord in ngWords}
     if params.ng_word in ng_words_search_set:
         fastapi_logger.error("Duplicated ng word")
-        raise HTTPException(status_code=400, detail="Duplicated ng word")
+        raise HTTPException(status_code=409, detail="Duplicated ng word")
 
     try:
         ngWord_in = schemas.NgWordsCreateInDB(
@@ -82,12 +83,15 @@ async def delete_ng_word(ngWordId: int, db: Session = Depends(deps.get_db)):
     """
 
     try:
-        is_ok = crud.delete_word(db, ng_word_id=ngWordId)
+        is_ok = crud.delete_ng_word(db, ng_word_id=ngWordId)
         if not is_ok:
-            fastapi_logger.error("Ng word not found.")
-            raise HTTPException(status_code=400, detail="Ng word not found.")
+            raise HTTPException(status_code=404, detail="Ng word deleting was failed")
 
-        return JSONResponse()
+        response_json = {
+            "detail": "OK"
+        }
+
+        return response_json
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

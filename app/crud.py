@@ -13,11 +13,44 @@ from sqlalchemy.orm import Session, joinedload, load_only
 from app import models, schemas
 
 
+def read_ng_word_from_id(db: Session, ng_word_id: int):
+    """
+    ng_word_idからng_wordを取得する
+    存在しない場合はNoneを返す
+    """
+
+    return db.query(models.NgWords).filter(models.NgWords.id == ng_word_id).one_or_none()
+
+
+def delete_ng_word(db: Session, ng_word_id: int):
+    """
+    groupに紐づいた全てのGroupをDBからListで取得して返す
+    groupを指定しないと全てのGroupが対象となる
+    """
+
+    try:
+        ngWord = read_ng_word_from_id(db, ng_word_id=ng_word_id)
+
+        if ngWord is None:
+            fastapi_logger.error("Ng word not found.")
+            return False
+
+        db.delete(ngWord)
+        db.commit()
+
+        return True
+
+    except Exception as e:
+        db.rollback()
+        raise e
+
+
 def read_ng_words_from_group(db: Session, group: str = None) -> List[models.NgWords]:
     """
     groupに紐づいた全てのGroupをDBからListで取得して返す
     groupを指定しないと全てのGroupが対象となる
     """
+
     if group is None:
         ngWords = db.query(models.NgWords).all()
         return ngWords
@@ -34,6 +67,7 @@ def read_groups(db: Session) -> List[models.Groups]:
     """
     全てのGroupをDBからListで取得して返す
     """
+
     groups = db.query(models.Groups).all()
     return groups
 
@@ -50,7 +84,7 @@ def create_group(db: Session, obj_in: schemas.GroupsCreateInDB) -> models.Groups
         db.add(group)
         db.commit()
 
-        # DB.に挿入されたgroupに更新
+        # DBに挿入されたgroupに更新
         db.refresh(group)
 
         return group
@@ -71,7 +105,7 @@ def create_ng_word(db: Session, obj_in: schemas.NgWordsCreateInDB) -> models.NgW
         db.add(ngWord)
         db.commit()
 
-        # # DBに挿入されたときに付与されたidをngWord.idとして更新
+        # DBに挿入されたときに付与されたidをngWord.idとして更新
         db.refresh(ngWord)
 
         return ngWord
