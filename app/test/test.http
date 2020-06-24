@@ -33,6 +33,17 @@ Content-Type: application/json
 
 ###
 
+# @name NgWordCreate4
+POST {{baseUrl}}/ng_words HTTP/1.1
+Content-Type: application/json
+
+{
+  "ng_word": "STOP",
+  "group": "no_problem_prohect"
+}
+
+###
+
 @beDeletedWordId = {{ NgWordCreate3.response.body.$.id }}
 
 ###
@@ -57,7 +68,7 @@ POST {{baseUrl}}/scan HTTP/1.1
 Content-Type: application/json
 
 {
-  "test": "NG 機密事項"
+  "text": "NG 機密事項"
 }
 
 ###
@@ -67,7 +78,7 @@ POST {{baseUrl}}/scan HTTP/1.1
 Content-Type: application/json
 
 {
-  "test": "何も問題ないテキスト"
+  "text": "何も問題ないテキスト"
 }
 
 ###

@@ -16,6 +16,7 @@ from app.core.config import settings
 
 router = APIRouter()
 
+
 @router.get("", response_model=List[str])
 async def get_group_all(db: Session = Depends(deps.get_db)):
     """
@@ -26,7 +27,6 @@ async def get_group_all(db: Session = Depends(deps.get_db)):
         groups = crud.read_groups(db)
         response_list = [group.group for group in groups]
         response_json = jsonable_encoder(response_list)
-
         return response_json
 
     except Exception as e:

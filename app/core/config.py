@@ -52,13 +52,11 @@ class Settings(BaseSettings):
                 host='',
                 path=f"/{values.get('MYSQL_DATABASE')}?unix_socket={unix_socket}&charset=utf8",
             )
-
         else:
             # If running locally, use the TCP connections instead
             # Set up Cloud SQL Proxy (cloud.google.com/sql/docs/mysql/sql-proxy)
             # so that your application can use 127.0.0.1:3306 to connect to your
             # Cloud SQL instance
-
             sqlalchemy_uri = MysqlDsn.build(
                 scheme="mysql+pymysql",
                 user=values.get("MYSQL_USER", "root"),
@@ -76,8 +74,15 @@ class Settings(BaseSettings):
         'pool_recycle': 1800,
         'pool_pre_ping': True,
         'convert_unicode': True,
-        'echo': True,
+        'echo': False,
     }
+
+
+    GOOGLE_APPLICATION_CREDENTIALS: str
+    VISION_ACCESS_TOKEN: str
+    VISION_API_LOCATION: str
+    VISION_API_LIMIT_PER_ONCE: int = 10
+
 
     class Config:
         case_sensitive = True

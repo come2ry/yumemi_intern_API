@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.db.session import SessionLocal
 
 from app.db.base import Base
-import uvicorn
+
 tables = Base.metadata.tables
 fastapi_logger.error(list(tables.keys()))
 

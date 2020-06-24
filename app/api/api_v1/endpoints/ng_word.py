@@ -26,6 +26,7 @@ async def get_ng_words_all(group: str = None, db: Session = Depends(deps.get_db)
     try:
         ngWords = crud.read_ng_words_from_group(db, group=group)
         return ngWords
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -50,7 +51,6 @@ async def post_ng_word(params: schemas.NgWordsParams, db: Session = Depends(deps
             group_id = created_group.id
             groups_search_dict[params.group] = group_id
 
-
     except Exception as e:
         fastapi_logger.error(str(e))
         raise HTTPException(status_code=400, detail=str(e))
@@ -58,16 +58,17 @@ async def post_ng_word(params: schemas.NgWordsParams, db: Session = Depends(deps
 
     ngWords = crud.read_ng_words_from_group(db, group=params.group)
     ng_words_search_set = {ngWord.ng_word for ngWord in ngWords}
+
     if params.ng_word in ng_words_search_set:
         fastapi_logger.error("Duplicated ng word")
         raise HTTPException(status_code=409, detail="Duplicated ng word")
+
 
     try:
         ngWord_in = schemas.NgWordsParamsInDB(
             ng_word=params.ng_word,
             group_id=group_id
         )
-
         ngWord = crud.create_ng_word(db, obj_in=ngWord_in)
         return ngWord
 
@@ -90,8 +91,8 @@ async def delete_ng_word(ngWordId: int, db: Session = Depends(deps.get_db)):
         response_json = {
             "detail": "OK"
         }
-
         return response_json
 
     except Exception as e:
+        fastapi_logger.error(str(e))
         raise HTTPException(status_code=400, detail=str(e))

@@ -101,7 +101,6 @@ def init_db(db: Session) -> None:
             )]
 
         is_ok = crud.create_ng_words(db, obj_in_list=word_in_list)
-
         if is_ok:
             print(f"DB init success")
         else:

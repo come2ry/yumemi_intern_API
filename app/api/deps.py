@@ -12,6 +12,7 @@ from app import crud, schemas
 from app.core.config import settings
 from app.db.session import SessionLocal
 
+
 def get_db() -> Generator:
     try:
         db = SessionLocal()

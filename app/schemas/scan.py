@@ -7,4 +7,4 @@ from pydantic import (BaseModel, PositiveInt, ValidationError, constr, validator
 
 # POST Requestで受け取る形式
 class ScanParams(BaseModel):
-    test: str
+    text: str

@@ -13,7 +13,7 @@ downgrade:
 	pipenv run alembic downgrade -1
 
 run:
-	uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+	pipenv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 init:
 	pipenv run python app/init_data.py
